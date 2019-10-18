@@ -11,8 +11,8 @@ public class Processador {
         Escalonador.qtdeProcesso = 4;
 
         Processo p1 = new Processo("NetBeans", EnumTipo.CPU, 4);
-        Processo p2 = new Processo("Chrome", EnumTipo.IO, 2);
-        Processo p3 = new Processo("Eclipse", EnumTipo.CPU, 3);
+        Processo p2 = new Processo("QAcademico", EnumTipo.IO, 6);
+        Processo p3 = new Processo("Familydoc", EnumTipo.CPU, 3);
         Processo p4 = new Processo("SOAE", EnumTipo.IO, 4);
 
         Escalonador.prontos.add(p1);
