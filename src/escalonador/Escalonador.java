@@ -88,7 +88,7 @@ public class Escalonador {
         if (prontos.size() > 0) {
             prontoToExetucando();
             qtdeEscalonamento++;
-            imprimeStatusListas();
+//            imprimeStatusListas();
             try {
                 synchronized (executando) {
                     executando.notifyAll();
