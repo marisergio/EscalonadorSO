@@ -17,7 +17,7 @@ public class Escalonador {
     public static int qtdeEscalonamento = 0;
 
     public static void imprimeStatusListas() {
-        System.out.println("--------------- ESCALONAMENTO "+qtdeEscalonamento+" ---------------");
+        System.out.println("--------------- ESCALONAMENTO " + qtdeEscalonamento + " ---------------");
         System.out.println("PRONTOS: " + prontos.size());
         for (Processo pronto : prontos) {
             System.out.print(" | " + pronto.toString());
@@ -32,17 +32,17 @@ public class Escalonador {
         }
         if (executando != null) {
             System.out.println("\nEXECUTANDO: " + executando.toString());
-        }else{
-           System.out.println("\nEXECUTANDO: null"); 
+        } else {
+            System.out.println("\nEXECUTANDO: null");
         }
         System.out.println("\n");
     }
 
-    public static void bloqueadoToPronto() {        
-            Processo p = bloqueados.get(0);
-            p.estado = EnumEstado.PRONTO;            
-            prontos.add(p);
-            bloqueados.remove(0);
+    public static void bloqueadoToPronto() {
+        Processo p = bloqueados.get(0);
+        p.estado = EnumEstado.PRONTO;
+        prontos.add(p);
+        bloqueados.remove(0);
     }
 
     public static void executandoToBloqueado() {
@@ -81,10 +81,9 @@ public class Escalonador {
         executando = null;
 
         // Restaurando bloqueados
-        while (bloqueados.size() > 0) {
-            bloqueadoToPronto();
-        }
-
+        //   while (bloqueados.size() > 0) {
+        //        bloqueadoToPronto();
+        //   }
         if (prontos.size() > 0) {
             prontoToExetucando();
             qtdeEscalonamento++;
