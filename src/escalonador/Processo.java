@@ -12,12 +12,14 @@ public class Processo extends Thread {
     public EnumEstado estado = EnumEstado.PRONTO;
     public EnumTipo tipo;
     public int qtdePc;
+    public int prioridade;
     public static Escalonador escalonador;
 
-    public Processo(String nome, EnumTipo tipo, int qtdePc) {
+    public Processo(String nome, EnumTipo tipo, int qtdePc, int prioridade) {
         this.nome = nome;
         this.tipo = tipo;
         this.qtdePc = qtdePc;
+        this.prioridade = prioridade;
     }
 
     @Override
@@ -42,6 +44,15 @@ public class Processo extends Thread {
     @Override
     public String toString() {
         return this.nome + "(" + this.pc + "/"+this.qtdePc+")";
+    }
+    
+    public int getPrioridade(){
+        return this.prioridade;
+    }
+    
+    public void setPrioridade(int amount){
+        this.prioridade = amount;
+        System.out.println("Prioridade do processo ["+this.nome+"] diminuída para "+this.prioridade+".");
     }
 
 }

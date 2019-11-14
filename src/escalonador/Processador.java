@@ -19,10 +19,10 @@ public class Processador {
         Processo.escalonador = escalonador;
         Escalonador.qtdeProcesso = 4;
 
-        Processo p1 = new Processo("NetBeans", EnumTipo.CPU, 4);
-        Processo p2 = new Processo("QAcademico", EnumTipo.IO, 6);
-        Processo p3 = new Processo("Familydoc", EnumTipo.CPU, 3);
-        Processo p4 = new Processo("SOAE", EnumTipo.IO, 4);
+        Processo p1 = new Processo("NetBeans", EnumTipo.CPU, 4, 5);
+        Processo p2 = new Processo("QAcademico", EnumTipo.IO, 6, 10);
+        Processo p3 = new Processo("Familydoc", EnumTipo.CPU, 3, 8);
+        Processo p4 = new Processo("SOAE", EnumTipo.IO, 4, 1);
 
         Escalonador.prontos.add(p1);
         Escalonador.prontos.add(p2);

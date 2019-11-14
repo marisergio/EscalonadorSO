@@ -2,6 +2,7 @@ package escalonador;
 
 import enumConfig.EnumEstado;
 import enumConfig.EnumTipo;
+import enumConfig.EnumTipoEscalonamento;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -13,6 +14,7 @@ public class Escalonador {
     public static List<Processo> bloqueados = new ArrayList<>();
     public static List<Processo> finalizados = new ArrayList<>();
     public static Processo executando;
+    public static EnumTipoEscalonamento tipoEscalonamento;
     public static int qtdeProcesso;
     public static int qtdeEscalonamento = 0;
 
@@ -37,6 +39,44 @@ public class Escalonador {
         }
         System.out.println("\n");
     }
+    
+    public static void RoundRobin(){
+        if (prontos.size() > 0) {
+            prontoToExetucando(0);
+            qtdeEscalonamento++;
+            imprimeStatusListas();
+            try {
+                synchronized (executando) {
+                    executando.notifyAll();
+                }
+            } catch (Exception e) {
+            }
+        }
+    }
+    
+    public static void Prioridade(){
+        int processNumber = 0;
+        if (prontos.size() > 0) {
+            if (prontos.size() > 1){
+                int higher = 0;        
+                for (Processo p : prontos){            
+                    if(p.getPrioridade() >= higher){
+                        higher = p.getPrioridade();
+                        processNumber = prontos.indexOf(p);
+                    }
+                }
+            }
+            prontoToExetucando(processNumber);
+            qtdeEscalonamento++;
+            imprimeStatusListas();
+            try {
+                synchronized (executando) {
+                    executando.notifyAll();
+                }
+               } catch (Exception e) {
+            }
+        }
+    }
 
     public static void bloqueadoToPronto() {
         Processo p = bloqueados.get(0);
@@ -50,10 +90,13 @@ public class Escalonador {
         bloqueados.add(executando);
     }
 
-    public static void prontoToExetucando() {
-        executando = prontos.get(0);
+    public static void prontoToExetucando(int processNumber) {
+        executando = prontos.get(processNumber);
+        if (executando.getPrioridade() >= 1){
+            executando.setPrioridade(executando.getPrioridade() - 1);
+        }
         executando.estado = EnumEstado.EXECUTANDO;
-        prontos.remove(prontos.get(0));
+        prontos.remove(prontos.get(processNumber));
     }
 
     public static void executandoToPronto() {
@@ -79,21 +122,11 @@ public class Escalonador {
 
         // Zerando o executando
         executando = null;
-
-        // Restaurando bloqueados
-        //   while (bloqueados.size() > 0) {
-        //        bloqueadoToPronto();
-        //   }
-        if (prontos.size() > 0) {
-            prontoToExetucando();
-            qtdeEscalonamento++;
-//            imprimeStatusListas();
-            try {
-                synchronized (executando) {
-                    executando.notifyAll();
-                }
-            } catch (Exception e) {
-            }
+          
+        if (this.tipoEscalonamento == EnumTipoEscalonamento.ROUNDROBIN){
+            RoundRobin();
+        }else if(this.tipoEscalonamento == EnumTipoEscalonamento.PRIORIDADE){
+            Prioridade();
         }
     }
 }

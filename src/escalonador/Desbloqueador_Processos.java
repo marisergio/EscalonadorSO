@@ -3,6 +3,7 @@ package escalonador;
 import static escalonador.Escalonador.bloqueadoToPronto;
 import static escalonador.Escalonador.bloqueados;
 import static escalonador.Escalonador.executando;
+import static escalonador.Escalonador.imprimeStatusListas;
 import static escalonador.Escalonador.prontoToExetucando;
 import static escalonador.Escalonador.prontos;
 import static escalonador.Escalonador.qtdeEscalonamento;
@@ -19,9 +20,9 @@ public class Desbloqueador_Processos extends Thread {
             if (Escalonador.bloqueados.size() > 0) {
                 Escalonador.bloqueadoToPronto();
                 if (prontos.size() > 0) {
-                    prontoToExetucando();
+                    prontoToExetucando(0);
                     qtdeEscalonamento++;
-//            imprimeStatusListas();
+                    imprimeStatusListas();
                     try {
                         synchronized (executando) {
                             executando.notifyAll();
@@ -31,8 +32,7 @@ public class Desbloqueador_Processos extends Thread {
                 }
             }
             try {
-
-                Thread.sleep(6000);
+                Thread.sleep(1000);
             } catch (InterruptedException ex) {
                 Logger.getLogger(Desbloqueador_Processos.class.getName()).log(Level.SEVERE, null, ex);
             }
