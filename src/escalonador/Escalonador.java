@@ -3,6 +3,7 @@ package escalonador;
 import enumConfig.EnumEstado;
 import enumConfig.EnumTipo;
 import enumConfig.EnumTipoEscalonamento;
+import interfaceUsuario.Dashboard;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -45,6 +46,7 @@ public class Escalonador {
             prontoToExetucando(0);
             qtdeEscalonamento++;
             imprimeStatusListas();
+            Dashboard.refreshGUI();
             try {
                 synchronized (executando) {
                     executando.notifyAll();
@@ -69,6 +71,7 @@ public class Escalonador {
             prontoToExetucando(processNumber);
             qtdeEscalonamento++;
             imprimeStatusListas();
+            Dashboard.refreshGUI();
             try {
                 synchronized (executando) {
                     executando.notifyAll();
@@ -107,6 +110,7 @@ public class Escalonador {
     public static void executandoToFinalizado() {
         executando.estado = EnumEstado.FINALIZADO;
         finalizados.add(executando);
+        Dashboard.refreshGUI();
     }
 
     public synchronized void escalonarProcesso() {

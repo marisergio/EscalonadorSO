@@ -1,23 +1,25 @@
 package escalonador;
 
 import enumConfig.EnumTipo;
+import enumConfig.EnumTipoEscalonamento;
 import interfaceUsuario.Dashboard;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class Processador {
     public static void main(String[] args) throws InterruptedException {
-      //  Dashboard dash = new Dashboard();
-       // JFrame f = new JFrame();
-      //  f.setSize(970, 450); 
-       // f.setVisible(true);
+        Dashboard dash = new Dashboard();
+        JFrame f = new JFrame();
+        f.setSize(970, 450); 
+        f.setVisible(true);
 
         //Now add your JPanel (JPanel yourJPanelName = new JPanel();)
-      //  f.add(dash);
+        f.add(dash);
         
-        Escalonador escalonador = new Escalonador();
+        /*Escalonador escalonador = new Escalonador();
         Processo.escalonador = escalonador;
         Escalonador.qtdeProcesso = 4;
+        Escalonador.tipoEscalonamento = EnumTipoEscalonamento.PRIORIDADE;
 
         Processo p1 = new Processo("NetBeans", EnumTipo.CPU, 4, 5);
         Processo p2 = new Processo("QAcademico", EnumTipo.IO, 6, 10);
@@ -45,7 +47,7 @@ public class Processador {
         p4.join();
         thread.join();
         
-        Escalonador.imprimeStatusListas();
+        Escalonador.imprimeStatusListas();*/
             
         
     }
